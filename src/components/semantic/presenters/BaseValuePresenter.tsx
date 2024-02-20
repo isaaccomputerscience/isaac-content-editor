@@ -173,8 +173,8 @@ export interface ValueWrapperProps {
 }
 
 export const ValueWrapper: FunctionComponent<ValueWrapperProps> = ({ className, valueRef, children }) => {
-  // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions
   return (
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
     <div
       role="cell"
       className={className}

@@ -1,11 +1,9 @@
 /* eslint-disable no-irregular-whitespace */ // For convenient construction of non-breaking spaces in custom strings
 import React, { MutableRefObject, useCallback, useMemo, useRef, useState } from "react";
 import { Button, ButtonGroup } from "reactstrap";
-
 import { Content } from "../../../isaac-data-types";
 import { safeLowercase } from "../../../utils/strings";
 import { useFixedRef } from "../../../utils/hooks";
-
 import { SemanticItem } from "../SemanticItem";
 import { deriveNewDoc } from "./ListChildrenPresenter";
 import { EditableIDProp, EditableTitleProp } from "../props/EditableDocProp";
@@ -118,7 +116,6 @@ export function TabsMain({
   elementName,
   styles,
   suppressHeaderNames,
-  showTitles,
   back,
   forward,
   contentHeader,
@@ -164,7 +161,7 @@ export function TabsMain({
   );
 }
 
-export function useTabs({ doc, update, hideTitles }: TabsPresenterProps, settings: TabsSettings) {
+export function useTabs({ doc, update }: TabsPresenterProps, settings: TabsSettings) {
   const [index, setIndex] = useState(0);
   const docRef = useFixedRef(doc);
 

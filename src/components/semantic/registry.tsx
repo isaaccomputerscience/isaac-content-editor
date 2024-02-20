@@ -209,10 +209,6 @@ const isaacQuestionPage: RegistryEntry = {
   ...basePage,
   metadata: [...pageMeta, "attribution", "supersededBy", ...pageMetaTail],
 };
-const isaacFastTrackQuestionPage: RegistryEntry = {
-  ...isaacQuestionPage,
-  metadata: [...(isaacQuestionPage.metadata ?? []), "level"],
-};
 const isaacConceptPage: RegistryEntry = {
   ...isaacQuestionPage,
   metadata: [...(isaacQuestionPage.metadata ?? []), "summary"],

@@ -36,7 +36,7 @@ function getPreviewLink(doc: Content) {
   }
 }
 
-export function TopMenu({ previewable, undoable }: { previewable?: boolean; undoable?: boolean }) {
+export function TopMenu({ undoable }: { undoable?: boolean }) {
   const menuRef = useRef<PopupMenuRef>(null);
   const appContext = useContext(AppContext);
 

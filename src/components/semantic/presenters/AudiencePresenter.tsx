@@ -236,7 +236,7 @@ function AudienceContextPresenter({
               size="sm"
               className="ml-1"
               onClick={() => {
-                const [_first, ...rest] = values;
+                const [, ...rest] = values;
                 updateValues(rest);
               }}
             >
@@ -376,7 +376,7 @@ export function AudiencePresenter({ doc, update, type }: PresenterProps & { type
         {conciseAudiences(doc.audience, type)}
         <Button
           size="sm"
-          onClick={(e) => {
+          onClick={() => {
             setEditingAudience(doc.audience ?? [defaultAudience()]);
           }}
         >
@@ -385,8 +385,8 @@ export function AudiencePresenter({ doc, update, type }: PresenterProps & { type
       </div>
     );
   } else {
-    // eslint-disable-next-line
     return (
+      // eslint-disable-next-line
       <div
         key="edit"
         className={`${styles.wrapper} ${type === "accordion" ? styles.rightAlign : ""}`}

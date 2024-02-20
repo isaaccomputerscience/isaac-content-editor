@@ -1,4 +1,4 @@
-import { Config, getConfig } from "./config";
+import { getConfig } from "./config";
 
 function makeFetcher(server: string) {
   return async function apiFetcher(path: string, options?: RequestInit) {

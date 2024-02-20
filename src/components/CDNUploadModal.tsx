@@ -102,7 +102,7 @@ const GitHubDirInput = ({ repo, className, dir, setDir, invalid }: GitHubDirInpu
         );
       }}
       styles={{
-        control: (base, state) => ({
+        control: (base, _) => ({
           ...base,
           // state.isFocused can display different borderColor if you need it
           borderColor: !invalid ? "#ddd" : "red",

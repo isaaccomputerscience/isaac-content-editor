@@ -69,7 +69,7 @@ function renderDoc(doc: Content) {
   const dom = TestRenderer.create(
     <SemanticRoot
       doc={doc}
-      update={(newDoc) => {
+      update={(_) => {
         fail("update called");
       }}
     />,

@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import { useSelector } from "react-redux";
 import he from "he";
 import katex, { KatexOptions } from "katex";
 import "katex/dist/contrib/mhchem.mjs";
@@ -89,7 +88,6 @@ function mathjaxToKatex(macros: { [key: string]: MathJaxMacro }) {
 // Create MathJax versions for each of the two syntaxes, then create KaTeX versions of those:
 const MacrosWithMathsBoolean = Object.assign({}, BaseMacros, BooleanLogicMathsMacros);
 const MacrosWithEngineeringBoolean = Object.assign({}, BaseMacros, BooleanLogicEngineeringMacros);
-const KatexBaseMacros = mathjaxToKatex(BaseMacros);
 const KatexMacrosWithMathsBool = mathjaxToKatex(MacrosWithMathsBoolean);
 const KatexMacrosWithEngineeringBool = mathjaxToKatex(MacrosWithEngineeringBoolean);
 
@@ -189,7 +187,7 @@ function startMatch(match: RegExpMatchArray): Search {
   const key: string = match[0];
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
-  let delim = matchers[key];
+  const delim = matchers[key];
   if (delim != null) {
     // a start delimiter
     return {
@@ -201,7 +199,7 @@ function startMatch(match: RegExpMatchArray): Search {
     };
   } else if (match[0].substr(0, 6) === "\\begin") {
     // \begin{...}
-    let end = "\\end{" + match[1] + "}";
+    const end = "\\end{" + match[1] + "}";
     return {
       end: end,
       mode: "display",
@@ -271,7 +269,7 @@ export function katexify(
     index = match.index;
 
     // Find blocks of LaTeX
-    let search = startMatch(match);
+    const search = startMatch(match);
     if (search.just) {
       output += search.just;
       index = match.index + match[0].length;
@@ -367,8 +365,6 @@ export function katexify(
   output += html.substring(index, html.length);
   return output;
 }
-
-class AppState {}
 
 // A hook wrapper around katexify that gets its required parameters from the current redux state and existing figure numbering context
 export const useRenderKatex = () => {

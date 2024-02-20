@@ -1,5 +1,4 @@
 import { ContextType } from "react";
-
 import { AppContext } from "../App";
 import { dirname, generateGuid } from "../utils/strings";
 import { ContentType } from "../components/semantic/registry";
@@ -188,7 +187,7 @@ async function doSaveAs(context: ContextType<typeof AppContext>, action: ActionF
     const contentToSave = typeof alteredContent === "string" ? alteredContent : JSON.stringify(alteredContent, null, 2);
 
     githubCreate(context, basePath, newName, contentToSave)
-      .then(function (f) {
+      .then(function (_) {
         context.selection.setSelection({ path: newPath, isDir: false });
       })
       .catch(function (e) {

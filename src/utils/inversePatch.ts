@@ -30,7 +30,7 @@ function isInvertibleOperation(op: string): op is keyof typeof inverses {
 }
 
 export function invertJSONPatch(patch: Operation[]) {
-  let inversePatch: Operation[] = [];
+  const inversePatch: Operation[] = [];
   let skip = 0;
 
   // Iterate backwards through the patch operations, inverting each type of patch with the
@@ -66,7 +66,7 @@ function invertAdd(inversePatch: Operation[], addOp: AddOperation<any>) {
 }
 
 function invertReplace(inversePatch: Operation[], replaceOp: ReplaceOperation<any>, i: number, patch: Operation[]) {
-  let prevOp = patch[i - 1];
+  const prevOp = patch[i - 1];
   if (prevOp === void 0 || prevOp.op !== "test" || prevOp.path !== replaceOp.path) {
     throw new Error("cannot invert replace w/o test");
   }
@@ -86,7 +86,7 @@ function invertReplace(inversePatch: Operation[], replaceOp: ReplaceOperation<an
 }
 
 function invertRemove(inversePatch: Operation[], removeOp: RemoveOperation, i: number, patch: Operation[]) {
-  let prevOp = patch[i - 1];
+  const prevOp = patch[i - 1];
   if (prevOp === void 0 || prevOp.op !== "test" || prevOp.path !== removeOp.path) {
     throw new Error("cannot invert remove w/o test");
   }

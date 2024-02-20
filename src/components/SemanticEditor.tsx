@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useMemo } from "react";
+import React, { useContext, useEffect } from "react";
 import { Alert, Spinner } from "reactstrap";
 
 import { AppContext } from "../App";
@@ -82,7 +82,7 @@ export function SemanticEditor() {
 
   return (
     <div className={styles.editorWrapper}>
-      <TopMenu previewable undoable />
+      <TopMenu undoable />
       <div className={styles.editorScroller}>
         <SemanticRoot
           doc={appContext.editor.getCurrentDoc()}
