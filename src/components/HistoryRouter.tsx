@@ -16,13 +16,8 @@ export const HistoryRouter: FunctionComponent<CustomRouterProps> = ({ basename, 
   useLayoutEffect(() => history.listen(setState), [history]);
 
   return (
-    <Router
-      basename={basename}
-      // eslint-disable-next-line react/no-children-prop
-      children={children}
-      location={state.location}
-      navigationType={state.action}
-      navigator={history}
-    />
+    <Router basename={basename} location={state.location} navigationType={state.action} navigator={history}>
+      {children}
+    </Router>
   );
 };

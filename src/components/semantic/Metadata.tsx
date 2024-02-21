@@ -96,18 +96,16 @@ export function MetaItemPresenter({ doc, update, id, prop, name, options }: Meta
         checked={options?.type === "checkbox" ? (value as unknown as boolean) : undefined}
         onChange={options?.type !== "checkbox" ? valueOnChange : checkedOnChange}
         invalid={!!warning}
-        // eslint-disable-next-line react/no-children-prop
-        children={
-          options?.options &&
+        placeholder={name}
+        id={id}
+      >
+        {options?.options &&
           Object.entries(options?.options).map(([key, label]) => (
             <option key={key} value={key}>
               {label}
             </option>
-          ))
-        }
-        placeholder={name}
-        id={id}
-      />
+          ))}
+      </Input>
       {warning && <FormText>{warning}</FormText>}
     </>
   );
