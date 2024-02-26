@@ -1,4 +1,2 @@
-# Ignore everything outside of the "src" directory, and also ignore the auto-generated type file
-/*
-!/src
+# Ignore the auto-generated type file
 /src/isaac-data-types.d.ts

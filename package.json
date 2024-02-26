@@ -92,7 +92,9 @@
       }
     }
   },
-  "eslintIgnore": ["/src/isaac-data-types.d.ts"],
+  "eslintIgnore": [
+    "/src/isaac-data-types.d.ts"
+  ],
   "browserslist": [
     ">0.2%",
     "not dead",
