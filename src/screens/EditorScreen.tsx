@@ -47,32 +47,35 @@ interface CollapsableArg {
 }
 function useCollapsableDragElement(appContext: CollapsableArg): [(col: number) => HTMLElement, number | undefined] {
   const [collapsed, setCollapsed] = useState<undefined | number>();
-  const dragElement = useCallback(function (columnIndex: number) {
-    const gutterDiv = document.createElement("div");
-    gutterDiv.innerHTML = columnIndex === 1 ? "Files" : "Quick Preview";
-    gutterDiv.className = styles.gutter;
+  const dragElement = useCallback(
+    function (columnIndex: number) {
+      const gutterDiv = document.createElement("div");
+      gutterDiv.innerHTML = columnIndex === 1 ? "Files" : "Quick Preview";
+      gutterDiv.className = styles.gutter;
 
-    // Collapse on double click
-    gutterDiv.addEventListener("dblclick", function () {
-      setCollapsed(columnIndex === 1 ? 0 : 2);
-    });
-
-    // Clear collapsed on drag interaction so that we can collapse another column in the future
-    gutterDiv.addEventListener("dragend", function () {
-      setCollapsed(undefined);
-    });
-
-    // Lazy start preview panel
-    if (columnIndex === 2) {
-      gutterDiv.addEventListener("click", function lazyStartPreviewPanel() {
-        if (!appContext.preview.open) {
-          appContext.preview.toggle();
-        }
+      // Collapse on double click
+      gutterDiv.addEventListener("dblclick", function () {
+        setCollapsed(columnIndex === 1 ? 0 : 2);
       });
-    }
 
-    return gutterDiv;
-  }, []);
+      // Clear collapsed on drag interaction so that we can collapse another column in the future
+      gutterDiv.addEventListener("dragend", function () {
+        setCollapsed(undefined);
+      });
+
+      // Lazy start preview panel
+      if (columnIndex === 2) {
+        gutterDiv.addEventListener("click", function lazyStartPreviewPanel() {
+          if (!appContext.preview.open) {
+            appContext.preview.toggle();
+          }
+        });
+      }
+
+      return gutterDiv;
+    },
+    [appContext.preview],
+  );
 
   // Stop preview panel if it is collapsed
   useEffect(
@@ -81,7 +84,7 @@ function useCollapsableDragElement(appContext: CollapsableArg): [(col: number) =
         appContext.preview.toggle();
       }
     },
-    [collapsed],
+    [appContext.preview, collapsed],
   );
 
   return [dragElement, collapsed];
@@ -232,8 +235,8 @@ export function EditorScreen() {
       },
     };
   }, [
+    setSelection,
     setCurrentDoc,
-    setDirty,
     loadNewDoc,
     params.branch,
     user,
@@ -244,11 +247,10 @@ export function EditorScreen() {
     cdnOpen,
     selection,
     dirty,
-    setSelection,
-    currentContent,
-    isAlreadyPublished,
-    setLastChange,
     lastChange,
+    currentContent,
+    currentContentPath,
+    isAlreadyPublished,
   ]);
   const contextRef = useFixedRef(appContext);
 
@@ -269,7 +271,7 @@ export function EditorScreen() {
             } else {
               switch (option.value) {
                 case "save":
-                  await contextRef.current.dispatch({ type: "save" });
+                  contextRef.current.dispatch({ type: "save" });
                 // eslint-ignore-nextline no-fallthrough
                 case "discard":
                   setDirty(false);
@@ -283,7 +285,7 @@ export function EditorScreen() {
       unblockRef.current = unblock;
       return unblock;
     }
-  }, [dirty]);
+  }, [contextRef, dirty, selection?.path]);
 
   const keydown = useCallback(
     (event: KeyboardEvent) => {

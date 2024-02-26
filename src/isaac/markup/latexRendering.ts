@@ -109,7 +109,7 @@ function sortLength(a: string, b: string) {
   if (a.length !== b.length) {
     return b.length - a.length;
   }
-  return a == b ? 0 : a < b ? -1 : 1;
+  return a === b ? 0 : a < b ? -1 : 1;
 }
 
 const config = {
@@ -220,7 +220,7 @@ function startMatch(match: RegExpMatchArray): Search {
 }
 
 function endMatch(match: RegExpExecArray, search: Search) {
-  if (match[0] == search.end) {
+  if (match[0] === search.end) {
     if (search.pcount === 0) {
       search.matched = true;
       search.clen = search.isBeginEnd ? 0 : match[0].length;
@@ -297,7 +297,7 @@ export function katexify(
         };
         const katexOptions = {
           ...customKatexOptions,
-          displayMode: search.mode == "display",
+          displayMode: search.mode === "display",
           macros: macrosToUse,
           output: "html",
         } as KatexOptions;

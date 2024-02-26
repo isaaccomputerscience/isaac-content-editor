@@ -74,7 +74,7 @@ export function ItemQuestionPresenter(
   };
   useEffect(() => {
     countDropZonesIn(doc);
-  }, []);
+  }, [doc]);
 
   return (
     <ClozeQuestionContext.Provider value={{ isClozeQuestion: isClozeQuestion(doc), dropZoneCount }}>

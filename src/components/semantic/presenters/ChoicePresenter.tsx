@@ -270,6 +270,7 @@ export const ItemChoicePresenter = (props: ValuePresenterProps<ParsonsChoice>) =
         setShowClozeChoiceWarning(false);
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dropZoneCount]);
 
   const items = maybeItems ?? [];

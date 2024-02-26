@@ -38,14 +38,14 @@ export const MarkupToolbar = ({
 
   useLayoutEffect(() => {
     updateIsWide();
-  }, []);
+  }, [updateIsWide]);
 
   useEffect(() => {
     if (!toolbarRef.current) return;
     const resizeObserver = new ResizeObserver(updateIsWide);
     resizeObserver.observe(toolbarRef.current);
     return () => resizeObserver.disconnect();
-  }, []);
+  }, [updateIsWide]);
 
   return (
     <div ref={toolbarRef} className={"d-flex w-100 bg-light border-bottom p-1 " + styles.cmMenuBar}>

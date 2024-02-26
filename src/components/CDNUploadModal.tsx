@@ -157,8 +157,9 @@ export const CDNUploadModal = () => {
 
   const dirIsValid = validateDir(dir);
   const allFilesAreValid = files?.every((f) => f.isValid);
-  const paths =
-    dir && dirIsValid.isValid && files ? [...files].map((f) => dir.replace(/\/$/, "") + "/" + f.file.name) : [];
+  const paths = useMemo(() => {
+    return dir && dirIsValid.isValid && files ? [...files].map((f) => dir.replace(/\/$/, "") + "/" + f.file.name) : [];
+  }, [dir, dirIsValid.isValid, files]);
 
   useEffect(() => {
     if (files && files.length === 0) setSuccessfulUploads(undefined);

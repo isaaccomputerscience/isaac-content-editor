@@ -40,9 +40,12 @@ function RedirectOldOrDefault() {
 
 function GitHubComparisonRedirect() {
   const params = useParams();
-  useEffect(function redirectToGitHub() {
-    window.location.href = githubComparisonPath(params.old, params.new);
-  }, []);
+  useEffect(
+    function redirectToGitHub() {
+      window.location.href = githubComparisonPath(params.old, params.new);
+    },
+    [params.new, params.old],
+  );
   return (
     <div className="p-2">
       <strong>Redirecting to GitHub...</strong>
