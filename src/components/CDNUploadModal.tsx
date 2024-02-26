@@ -20,6 +20,7 @@ interface GitHubOption {
   label: string;
   value: string;
 }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const AlwaysVisibleInput = (props: any) => <components.Input {...props} isHidden={false} />;
 
 interface GitHubDirInputProps {
@@ -49,7 +50,8 @@ const GitHubDirInput = ({ repo, className, dir, setDir, invalid }: GitHubDirInpu
             options:
               data?.type === "file"
                 ? { value: data.path, label: data.path, isDisabled: true }
-                : data?.map((d: any) => ({ value: d.path, label: d.path, isDisabled: d.type === "file" })) ?? [],
+                : // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                  data?.map((d: any) => ({ value: d.path, label: d.path, isDisabled: d.type === "file" })) ?? [],
             label: "Existing directories",
           },
         ];

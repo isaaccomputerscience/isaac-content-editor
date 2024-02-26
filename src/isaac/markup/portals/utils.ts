@@ -36,6 +36,7 @@ export const useTableCompatiblePortalsInHtml = portalsInHtmlHookBuilder(TABLE_CO
 
 // This is a hook that abstracts the callback ref pattern, allowing for updates to a refs value (specifically one
 // referring to an element) to cause component updates
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function useStatefulElementRef<T>(): [T | undefined, (ref: any) => void] {
   const [ref, setRef] = useState<T>();
   const updateRef = useCallback((ref) => {

@@ -274,6 +274,7 @@ export async function githubRename(
   let subtree = await fetcher(`repos/$OWNER/${GITHUB_REPO_KEYS[repo]}/git/trees/${baseSha}`);
   // Find the tree node corresponding to the file we want to rename
   for (const segment of pathSegments.slice(0, -1)) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const nextTree = subtree.tree.find((t: any) => t.path === segment);
     if (nextTree) {
       subtree = await fetcher(nextTree.url.replace(GITHUB_API_URL, ""));
@@ -283,6 +284,7 @@ export async function githubRename(
     }
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const blob = subtree?.tree?.find((b: any) => b.path === oldName);
   if (!blob) throw Error("A file with that name does not exist on the current branch.");
 

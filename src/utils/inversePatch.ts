@@ -37,6 +37,7 @@ export function invertJSONPatch(patch: Operation[]) {
   for (let i = patch.length - 1; i >= 0; i -= skip) {
     const opType = patch[i].op;
     if (isInvertibleOperation(opType)) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       skip = inverses[opType](inversePatch, patch[i] as any, i, patch);
     } else {
       throw Error(`Inverse patch cannot be computed: inversion is not implemented for operations of type: ${opType}`);
@@ -45,11 +46,13 @@ export function invertJSONPatch(patch: Operation[]) {
   return inversePatch;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function invertTest(inversePatch: Operation[], testOp: TestOperation<any>) {
   inversePatch.push(testOp);
   return 1;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function invertAdd(inversePatch: Operation[], addOp: AddOperation<any>) {
   inversePatch.push(
     {
@@ -65,6 +68,7 @@ function invertAdd(inversePatch: Operation[], addOp: AddOperation<any>) {
   return 1;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function invertReplace(inversePatch: Operation[], replaceOp: ReplaceOperation<any>, i: number, patch: Operation[]) {
   const prevOp = patch[i - 1];
   if (prevOp === void 0 || prevOp.op !== "test" || prevOp.path !== replaceOp.path) {
