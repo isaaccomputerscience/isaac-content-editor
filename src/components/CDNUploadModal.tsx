@@ -8,6 +8,8 @@ import CreatableSelect from "react-select/creatable";
 import { isDefined } from "../utils/types";
 import { FileUploader } from "react-drag-drop-files";
 
+// Component currently not in use - previously used by Physics
+
 export const defaultCdn = {
   open: false,
   toggle: (() => {
