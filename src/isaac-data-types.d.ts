@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 3.2.1263 on 2024-05-24 13:09:11.
+// Generated using typescript-generator version 3.2.1263 on 2024-05-24 14:04:42.
 
 export interface AbstractUserPreferenceManager {
 }
@@ -65,13 +65,13 @@ export interface ITransaction extends AutoCloseable {
 }
 
 export interface IUserAlert {
+  id?: number;
+  message?: string;
   userId?: number;
   created?: EpochTimeStamp;
   link?: string;
   seen?: EpochTimeStamp;
   clicked?: EpochTimeStamp;
-  message?: string;
-  id?: number;
   dismissed?: EpochTimeStamp;
 }
 
@@ -79,9 +79,9 @@ export interface IUserAlerts {
 }
 
 export interface IUserNotification {
+  status?: NotificationStatus;
   userId?: number;
   created?: EpochTimeStamp;
-  status?: NotificationStatus;
   contentNotificationId?: string;
 }
 
@@ -119,6 +119,7 @@ export interface IsaacEventPage extends Content {
   date?: EpochTimeStamp;
   bookingDeadline?: EpochTimeStamp;
   prepWorkDeadline?: EpochTimeStamp;
+  publicationDate?: EpochTimeStamp;
   location?: Location;
   preResources?: ExternalReference[];
   postResources?: ExternalReference[];
@@ -508,13 +509,13 @@ export interface Video extends Media {
 }
 
 export interface EventBooking {
-  eventId?: string;
   userId?: number;
+  eventId?: string;
+  creationDate?: EpochTimeStamp;
   reservedById?: number;
   bookingStatus?: BookingStatus;
   updateDate?: EpochTimeStamp;
   additionalInformation?: { [index: string]: string };
-  creationDate?: EpochTimeStamp;
   id?: number;
 }
 
@@ -697,6 +698,8 @@ export interface Address {
 
 export interface Connection extends Wrapper, AutoCloseable {
   schema?: string;
+  catalog?: string;
+  typeMap?: { [index: string]: Class<any> };
   autoCommit?: boolean;
   metaData?: DatabaseMetaData;
   transactionIsolation?: number;
@@ -704,14 +707,30 @@ export interface Connection extends Wrapper, AutoCloseable {
   holdability?: number;
   clientInfo?: { [index: string]: any };
   networkTimeout?: number;
-  catalog?: string;
-  typeMap?: { [index: string]: Class<any> };
   readOnly?: boolean;
   closed?: boolean;
 }
 
+export interface Class<T> extends Serializable, GenericDeclaration, Type, AnnotatedElement, OfField<Class<any>>, Constable {
+}
+
 export interface DatabaseMetaData extends Wrapper {
+  defaultTransactionIsolation?: number;
+  identifierQuoteString?: string;
+  sqlkeywords?: string;
+  numericFunctions?: string;
+  stringFunctions?: string;
+  systemFunctions?: string;
   resultSetHoldability?: number;
+  databaseProductName?: string;
+  databaseProductVersion?: string;
+  driverName?: string;
+  driverVersion?: string;
+  driverMajorVersion?: number;
+  driverMinorVersion?: number;
+  timeDateFunctions?: string;
+  searchStringEscape?: string;
+  extraNameCharacters?: string;
   schemaTerm?: string;
   procedureTerm?: string;
   catalogTerm?: string;
@@ -748,42 +767,40 @@ export interface DatabaseMetaData extends Wrapper {
   rowIdLifetime?: RowIdLifetime;
   clientInfoProperties?: ResultSet;
   maxLogicalLobSize?: number;
-  databaseProductName?: string;
-  databaseProductVersion?: string;
-  driverName?: string;
-  driverVersion?: string;
-  driverMajorVersion?: number;
-  driverMinorVersion?: number;
-  identifierQuoteString?: string;
-  sqlkeywords?: string;
-  numericFunctions?: string;
-  stringFunctions?: string;
-  systemFunctions?: string;
-  timeDateFunctions?: string;
-  searchStringEscape?: string;
-  extraNameCharacters?: string;
-  defaultTransactionIsolation?: number;
   schemas?: ResultSet;
-  url?: string;
-  readOnly?: boolean;
   userName?: string;
   connection?: Connection;
+  readOnly?: boolean;
+  url?: string;
 }
 
 export interface SQLWarning extends SQLException {
   nextWarning?: SQLWarning;
 }
 
-export interface Class<T> extends Serializable, GenericDeclaration, Type, AnnotatedElement, OfField<Class<any>>, Constable {
-}
-
 export interface Wrapper {
 }
 
+export interface Serializable {
+}
+
+export interface GenericDeclaration extends AnnotatedElement {
+  typeParameters?: TypeVariable<any>[];
+}
+
+export interface Type {
+  typeName?: string;
+}
+
+export interface AnnotatedElement {
+  annotations?: Annotation[];
+  declaredAnnotations?: Annotation[];
+}
+
+export interface Constable {
+}
+
 export interface ResultSet extends Wrapper, AutoCloseable {
-  first?: boolean;
-  last?: boolean;
-  row?: number;
   metaData?: ResultSetMetaData;
   warnings?: SQLWarning;
   holdability?: number;
@@ -794,6 +811,9 @@ export interface ResultSet extends Wrapper, AutoCloseable {
   fetchSize?: number;
   concurrency?: number;
   statement?: Statement;
+  first?: boolean;
+  last?: boolean;
+  row?: number;
   type?: number;
   closed?: boolean;
 }
@@ -823,23 +843,19 @@ export interface SQLException extends Exception, Iterable<Throwable> {
   nextException?: SQLException;
 }
 
-export interface Serializable {
+export interface TypeVariable<D> extends Type, AnnotatedElement {
+  genericDeclaration?: D;
+  name?: string;
+  bounds?: Type[];
+  annotatedBounds?: AnnotatedType[];
 }
 
-export interface GenericDeclaration extends AnnotatedElement {
-  typeParameters?: TypeVariable<any>[];
+export interface Annotation {
 }
 
-export interface Type {
-  typeName?: string;
-}
-
-export interface AnnotatedElement {
-  annotations?: Annotation[];
-  declaredAnnotations?: Annotation[];
-}
-
-export interface Constable {
+export interface OfField<F> extends TypeDescriptor {
+  array?: boolean;
+  primitive?: boolean;
 }
 
 export interface ResultSetMetaData extends Wrapper {
@@ -848,6 +864,9 @@ export interface ResultSetMetaData extends Wrapper {
 
 export interface Statement extends Wrapper, AutoCloseable {
   maxRows?: number;
+  warnings?: SQLWarning;
+  fetchDirection?: number;
+  fetchSize?: number;
   maxFieldSize?: number;
   queryTimeout?: number;
   resultSet?: ResultSet;
@@ -860,9 +879,6 @@ export interface Statement extends Wrapper, AutoCloseable {
   closeOnCompletion?: boolean;
   largeUpdateCount?: number;
   largeMaxRows?: number;
-  warnings?: SQLWarning;
-  fetchDirection?: number;
-  fetchSize?: number;
   generatedKeys?: ResultSet;
   connection?: Connection;
   closed?: boolean;
@@ -871,30 +887,15 @@ export interface Statement extends Wrapper, AutoCloseable {
 export interface Exception extends Throwable {
 }
 
-export interface TypeVariable<D> extends Type, AnnotatedElement {
-  genericDeclaration?: D;
-  annotatedBounds?: AnnotatedType[];
-  name?: string;
-  bounds?: Type[];
-}
-
-export interface Annotation {
-}
-
-export interface OfField<F> extends TypeDescriptor {
-  array?: boolean;
-  primitive?: boolean;
-}
-
-export interface Iterable<T> {
-}
-
 export interface AnnotatedType extends AnnotatedElement {
-  type?: Type;
   annotatedOwnerType?: AnnotatedType;
+  type?: Type;
 }
 
 export interface TypeDescriptor {
+}
+
+export interface Iterable<T> {
 }
 
 export type Difficulty = "practice_1" | "practice_2" | "practice_3" | "challenge_1" | "challenge_2" | "challenge_3";
