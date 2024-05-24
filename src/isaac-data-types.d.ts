@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 3.2.1263 on 2024-05-24 11:06:09.
+// Generated using typescript-generator version 3.2.1263 on 2024-05-24 13:09:11.
 
 export interface AbstractUserPreferenceManager {
 }
@@ -65,23 +65,23 @@ export interface ITransaction extends AutoCloseable {
 }
 
 export interface IUserAlert {
-  message?: string;
-  id?: number;
-  seen?: EpochTimeStamp;
-  link?: string;
-  clicked?: EpochTimeStamp;
-  dismissed?: EpochTimeStamp;
   userId?: number;
   created?: EpochTimeStamp;
+  link?: string;
+  seen?: EpochTimeStamp;
+  clicked?: EpochTimeStamp;
+  message?: string;
+  id?: number;
+  dismissed?: EpochTimeStamp;
 }
 
 export interface IUserAlerts {
 }
 
 export interface IUserNotification {
-  status?: NotificationStatus;
   userId?: number;
   created?: EpochTimeStamp;
+  status?: NotificationStatus;
   contentNotificationId?: string;
 }
 
@@ -508,14 +508,14 @@ export interface Video extends Media {
 }
 
 export interface EventBooking {
-  id?: number;
-  creationDate?: EpochTimeStamp;
+  eventId?: string;
+  userId?: number;
   reservedById?: number;
   bookingStatus?: BookingStatus;
-  userId?: number;
-  eventId?: string;
   updateDate?: EpochTimeStamp;
   additionalInformation?: { [index: string]: string };
+  creationDate?: EpochTimeStamp;
+  id?: number;
 }
 
 export interface EventBookings {
@@ -696,37 +696,29 @@ export interface Address {
 }
 
 export interface Connection extends Wrapper, AutoCloseable {
-  readOnly?: boolean;
-  networkTimeout?: number;
-  closed?: boolean;
-  autoCommit?: boolean;
   schema?: string;
+  autoCommit?: boolean;
   metaData?: DatabaseMetaData;
-  catalog?: string;
+  transactionIsolation?: number;
   warnings?: SQLWarning;
-  typeMap?: { [index: string]: Class<any> };
   holdability?: number;
   clientInfo?: { [index: string]: any };
-  transactionIsolation?: number;
+  networkTimeout?: number;
+  catalog?: string;
+  typeMap?: { [index: string]: Class<any> };
+  readOnly?: boolean;
+  closed?: boolean;
 }
 
 export interface DatabaseMetaData extends Wrapper {
-  connection?: Connection;
-  readOnly?: boolean;
-  url?: string;
-  databaseProductName?: string;
-  driverVersion?: string;
-  driverMajorVersion?: number;
-  driverMinorVersion?: number;
-  numericFunctions?: string;
-  stringFunctions?: string;
-  systemFunctions?: string;
-  timeDateFunctions?: string;
-  searchStringEscape?: string;
-  extraNameCharacters?: string;
+  resultSetHoldability?: number;
+  schemaTerm?: string;
   procedureTerm?: string;
+  catalogTerm?: string;
   catalogAtStart?: boolean;
   catalogSeparator?: string;
+  maxBinaryLiteralLength?: number;
+  maxCharLiteralLength?: number;
   maxColumnNameLength?: number;
   maxColumnsInGroupBy?: number;
   maxColumnsInIndex?: number;
@@ -737,37 +729,45 @@ export interface DatabaseMetaData extends Wrapper {
   maxCursorNameLength?: number;
   maxIndexLength?: number;
   maxSchemaNameLength?: number;
+  maxProcedureNameLength?: number;
+  maxCatalogNameLength?: number;
+  maxRowSize?: number;
   maxStatementLength?: number;
   maxStatements?: number;
   maxTableNameLength?: number;
   maxTablesInSelect?: number;
   maxUserNameLength?: number;
+  catalogs?: ResultSet;
+  tableTypes?: ResultSet;
+  typeInfo?: ResultSet;
+  databaseMajorVersion?: number;
+  databaseMinorVersion?: number;
   jdbcmajorVersion?: number;
   jdbcminorVersion?: number;
   sqlstateType?: number;
   rowIdLifetime?: RowIdLifetime;
-  maxLogicalLobSize?: number;
-  userName?: string;
-  driverName?: string;
-  sqlkeywords?: string;
-  schemaTerm?: string;
-  catalogTerm?: string;
-  maxRowSize?: number;
-  schemas?: ResultSet;
-  catalogs?: ResultSet;
-  tableTypes?: ResultSet;
-  typeInfo?: ResultSet;
-  resultSetHoldability?: number;
-  databaseProductVersion?: string;
-  identifierQuoteString?: string;
-  maxBinaryLiteralLength?: number;
-  maxCharLiteralLength?: number;
-  maxProcedureNameLength?: number;
-  maxCatalogNameLength?: number;
-  defaultTransactionIsolation?: number;
-  databaseMajorVersion?: number;
-  databaseMinorVersion?: number;
   clientInfoProperties?: ResultSet;
+  maxLogicalLobSize?: number;
+  databaseProductName?: string;
+  databaseProductVersion?: string;
+  driverName?: string;
+  driverVersion?: string;
+  driverMajorVersion?: number;
+  driverMinorVersion?: number;
+  identifierQuoteString?: string;
+  sqlkeywords?: string;
+  numericFunctions?: string;
+  stringFunctions?: string;
+  systemFunctions?: string;
+  timeDateFunctions?: string;
+  searchStringEscape?: string;
+  extraNameCharacters?: string;
+  defaultTransactionIsolation?: number;
+  schemas?: ResultSet;
+  url?: string;
+  readOnly?: boolean;
+  userName?: string;
+  connection?: Connection;
 }
 
 export interface SQLWarning extends SQLException {
@@ -781,21 +781,21 @@ export interface Wrapper {
 }
 
 export interface ResultSet extends Wrapper, AutoCloseable {
-  type?: number;
-  fetchDirection?: number;
+  first?: boolean;
   last?: boolean;
   row?: number;
-  closed?: boolean;
-  cursorName?: string;
-  beforeFirst?: boolean;
-  afterLast?: boolean;
-  first?: boolean;
-  fetchSize?: number;
-  concurrency?: number;
-  statement?: Statement;
   metaData?: ResultSetMetaData;
   warnings?: SQLWarning;
   holdability?: number;
+  cursorName?: string;
+  beforeFirst?: boolean;
+  afterLast?: boolean;
+  fetchDirection?: number;
+  fetchSize?: number;
+  concurrency?: number;
+  statement?: Statement;
+  type?: number;
+  closed?: boolean;
 }
 
 export interface Throwable extends Serializable {
@@ -813,14 +813,14 @@ export interface StackTraceElement extends Serializable {
   methodName?: string;
   fileName?: string;
   lineNumber?: number;
-  className?: string;
   nativeMethod?: boolean;
+  className?: string;
 }
 
 export interface SQLException extends Exception, Iterable<Throwable> {
-  nextException?: SQLException;
   sqlstate?: string;
   errorCode?: number;
+  nextException?: SQLException;
 }
 
 export interface Serializable {
@@ -842,30 +842,30 @@ export interface AnnotatedElement {
 export interface Constable {
 }
 
+export interface ResultSetMetaData extends Wrapper {
+  columnCount?: number;
+}
+
 export interface Statement extends Wrapper, AutoCloseable {
-  connection?: Connection;
-  generatedKeys?: ResultSet;
-  fetchDirection?: number;
+  maxRows?: number;
   maxFieldSize?: number;
   queryTimeout?: number;
-  resultSetType?: number;
-  closeOnCompletion?: boolean;
-  largeUpdateCount?: number;
-  largeMaxRows?: number;
-  closed?: boolean;
-  maxRows?: number;
-  fetchSize?: number;
-  warnings?: SQLWarning;
   resultSet?: ResultSet;
   updateCount?: number;
   moreResults?: boolean;
-  poolable?: boolean;
   resultSetConcurrency?: number;
+  resultSetType?: number;
   resultSetHoldability?: number;
-}
-
-export interface ResultSetMetaData extends Wrapper {
-  columnCount?: number;
+  poolable?: boolean;
+  closeOnCompletion?: boolean;
+  largeUpdateCount?: number;
+  largeMaxRows?: number;
+  warnings?: SQLWarning;
+  fetchDirection?: number;
+  fetchSize?: number;
+  generatedKeys?: ResultSet;
+  connection?: Connection;
+  closed?: boolean;
 }
 
 export interface Exception extends Throwable {
@@ -890,8 +890,8 @@ export interface Iterable<T> {
 }
 
 export interface AnnotatedType extends AnnotatedElement {
-  annotatedOwnerType?: AnnotatedType;
   type?: Type;
+  annotatedOwnerType?: AnnotatedType;
 }
 
 export interface TypeDescriptor {
