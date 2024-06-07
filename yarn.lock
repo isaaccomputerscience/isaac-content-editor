@@ -8036,10 +8036,10 @@ react-dom@16.8.5:
     prop-types "^15.6.2"
     scheduler "^0.13.5"
 
-react-drag-drop-files@^2.3.7:
-  version "2.3.7"
-  resolved "https://registry.yarnpkg.com/react-drag-drop-files/-/react-drag-drop-files-2.3.7.tgz#dc9a157994bf09cf62574ccc2de0391dadb37c10"
-  integrity sha512-OqYA1NaljTLKHGOLu7kFTlo2UC8YyJtldC47bJm0E8cHkDNjx5NBC845YohkVWCIpMM/76eT0ij+kVUxKtS67Q==
+react-drag-drop-files@^2.3.10:
+  version "2.3.10"
+  resolved "https://registry.yarnpkg.com/react-drag-drop-files/-/react-drag-drop-files-2.3.10.tgz#3f6ea316f8ad66a6f76b312cc4108c7c14065b06"
+  integrity sha512-Fv614W9+OtXFB5O+gjompTxQZLYGO7wJeT4paETGiXtiADB9yPOMGYD4A3PMCTY9Be874/wcpl+2dm3MvCIRzg==
   dependencies:
     prop-types "^15.7.2"
     styled-components "^5.3.0"
