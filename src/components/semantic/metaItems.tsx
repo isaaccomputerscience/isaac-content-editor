@@ -178,7 +178,7 @@ export const MetaItems = asMetaItems({
   reservations: ["Reservations", { presenter: ReservationsMetaPresenter }],
   preResources: ["Pre-Resources", { presenter: ResourcesMetaPresenter }],
   postResources: ["Post-Resources", { presenter: ResourcesMetaPresenter }],
-  eventSurvey: ["Event-Survey", { presenter: ResourcesMetaPresenter }],
+  eventSurvey: ["Event Survey", { presenter: ResourcesMetaPresenter }],
 });
 
 function ReservationsMetaPresenter(props: MetaItemPresenterProps<IsaacEventPage>) {
