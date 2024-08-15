@@ -462,7 +462,7 @@ function ResourcesMetaPresenter({ doc, update, prop, name }: MetaItemPresenterPr
       <Button
         onClick={() => insert(resources?.length ?? 0, { title: "Event brochure", url: "somewhere/interesting.pdf" })}
       >
-        Add {name.substring(0, name.length - 1)}
+        Add {name.substring(0, name.length)}
       </Button>
     </>
   );
