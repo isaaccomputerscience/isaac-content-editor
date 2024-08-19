@@ -123,7 +123,7 @@ export interface IsaacEventPage extends Content {
   location?: Location;
   preResources?: ExternalReference[];
   postResources?: ExternalReference[];
-  eventSurvey?: ExternalReference[];
+  eventSurvey?: string;
   eventThumbnail?: Image;
   numberOfPlaces?: number;
   groupReservationLimit?: number;
