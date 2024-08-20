@@ -91,7 +91,7 @@ const emptyDocuments: Document[] = [
       altText: "",
       id: "eventThumbnail",
     },
-    date: 1442430000000,
+    date: 1722470400000,
     numberOfPlaces: 20,
     eventStatus: "CLOSED",
     preResources: [],
