@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 3.2.1263 on 2024-08-12 11:50:50.
+// Generated using typescript-generator version 3.2.1263 on 2024-08-20 12:58:59.
 
 export interface AbstractUserPreferenceManager {
 }
