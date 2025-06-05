@@ -137,7 +137,7 @@ export const MetaItems = asMetaItems({
   reservations: ["Reservations", { presenter: ReservationsMetaPresenter }],
   preResources: ["Pre-Resources", { presenter: ResourcesMetaPresenter }],
   postResources: ["Post-Resources", { presenter: ResourcesMetaPresenter }],
-  eventSurvey: "Event Survey URL",
+  eventSurvey: ["Event Survey", { presenter: EventSurveyMetaPresenter }],
 });
 
 function ReservationsMetaPresenter(props: MetaItemPresenterProps<IsaacEventPage>) {
@@ -423,6 +423,42 @@ function ResourcesMetaPresenter({ doc, update, prop, name }: MetaItemPresenterPr
       >
         Add {name.substring(0, name.length)}
       </Button>
+    </>
+  );
+}
+
+export function EventSurveyMetaPresenter(props: MetaItemPresenterProps<Content>) {
+  // Ensure survey is always an object, never null
+  const survey = (props.doc[props.prop as keyof Content] as ExternalReference | null) ?? { title: "", url: "" };
+
+  // Update handler for a field
+  const updateSurvey = (newSurvey: Partial<ExternalReference>) => {
+    if (props.update) {
+      props.update({
+        ...props.doc,
+        [props.prop]: {
+          ...survey,
+          ...newSurvey,
+        },
+      });
+    }
+  };
+
+  return (
+    <>
+      <Row>
+        <Col xs={5}>Title</Col>
+        <Col xs={5}>URL</Col>
+      </Row>
+      <Row>
+        <Col xs={5}>
+          <MetaItemPresenter doc={survey} update={updateSurvey} prop="title" name="Title" />
+        </Col>
+        <Col xs={5}>
+          <MetaItemPresenter doc={survey} update={updateSurvey} prop="url" name="URL" />
+        </Col>
+        <Col xs={2}></Col>
+      </Row>
     </>
   );
 }
