@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-// Generated using typescript-generator version 3.2.1263 on 2025-07-18 14:11:44.
+// Generated using typescript-generator version 3.2.1263 on 2026-02-17 16:24:29.
 
 export interface AbstractUserPreferenceManager {
 }
@@ -65,24 +65,24 @@ export interface ITransaction extends AutoCloseable {
 }
 
 export interface IUserAlert {
-  message?: string;
-  id?: number;
   userId?: number;
   created?: EpochTimeStamp;
+  id?: number;
+  message?: string;
   link?: string;
-  seen?: EpochTimeStamp;
   clicked?: EpochTimeStamp;
   dismissed?: EpochTimeStamp;
+  seen?: EpochTimeStamp;
 }
 
 export interface IUserAlerts {
 }
 
 export interface IUserNotification {
-  status?: NotificationStatus;
+  contentNotificationId?: string;
   userId?: number;
   created?: EpochTimeStamp;
-  contentNotificationId?: string;
+  status?: NotificationStatus;
 }
 
 export interface IUserNotifications {
@@ -511,14 +511,14 @@ export interface Video extends Media {
 }
 
 export interface EventBooking {
-  id?: number;
+  additionalInformation?: { [index: string]: string };
   eventId?: string;
-  updateDate?: EpochTimeStamp;
   userId?: number;
   creationDate?: EpochTimeStamp;
   reservedById?: number;
   bookingStatus?: BookingStatus;
-  additionalInformation?: { [index: string]: string };
+  updateDate?: EpochTimeStamp;
+  id?: number;
 }
 
 export interface EventBookings {
@@ -588,10 +588,7 @@ export interface LocalUserCredential {
 }
 
 export interface RegisteredUser extends AbstractSegueUser {
-  /**
-   * @deprecated
-   */
-  _id?: number;
+  id?: number;
   givenName?: string;
   familyName?: string;
   email?: string;
@@ -610,7 +607,10 @@ export interface RegisteredUser extends AbstractSegueUser {
   registeredContexts?: UserContext[];
   registeredContextsLastConfirmed?: EpochTimeStamp;
   lastSeen?: EpochTimeStamp;
-  id?: number;
+  /**
+   * @deprecated
+   */
+  _id?: number;
 }
 
 export interface School {
@@ -701,24 +701,38 @@ export interface Address {
 }
 
 export interface Connection extends Wrapper, AutoCloseable {
-  readOnly?: boolean;
+  transactionIsolation?: number;
+  warnings?: SQLWarning;
+  closed?: boolean;
+  schema?: string;
   autoCommit?: boolean;
   metaData?: DatabaseMetaData;
   catalog?: string;
-  warnings?: SQLWarning;
   typeMap?: { [index: string]: Class<any> };
   holdability?: number;
   clientInfo?: { [index: string]: any };
-  schema?: string;
-  closed?: boolean;
   networkTimeout?: number;
-  transactionIsolation?: number;
+  readOnly?: boolean;
+}
+
+export interface SQLWarning extends SQLException {
+  nextWarning?: SQLWarning;
 }
 
 export interface DatabaseMetaData extends Wrapper {
+  resultSetHoldability?: number;
+  databaseProductVersion?: string;
+  identifierQuoteString?: string;
+  maxBinaryLiteralLength?: number;
+  maxCharLiteralLength?: number;
+  maxProcedureNameLength?: number;
+  maxCatalogNameLength?: number;
+  defaultTransactionIsolation?: number;
+  databaseMajorVersion?: number;
+  databaseMinorVersion?: number;
+  clientInfoProperties?: ResultSet;
   connection?: Connection;
-  readOnly?: boolean;
-  url?: string;
+  userName?: string;
   driverName?: string;
   sqlkeywords?: string;
   schemaTerm?: string;
@@ -728,7 +742,6 @@ export interface DatabaseMetaData extends Wrapper {
   catalogs?: ResultSet;
   tableTypes?: ResultSet;
   typeInfo?: ResultSet;
-  userName?: string;
   databaseProductName?: string;
   driverVersion?: string;
   driverMajorVersion?: number;
@@ -762,45 +775,14 @@ export interface DatabaseMetaData extends Wrapper {
   sqlstateType?: number;
   rowIdLifetime?: RowIdLifetime;
   maxLogicalLobSize?: number;
-  resultSetHoldability?: number;
-  databaseProductVersion?: string;
-  identifierQuoteString?: string;
-  maxBinaryLiteralLength?: number;
-  maxCharLiteralLength?: number;
-  maxProcedureNameLength?: number;
-  maxCatalogNameLength?: number;
-  defaultTransactionIsolation?: number;
-  databaseMajorVersion?: number;
-  databaseMinorVersion?: number;
-  clientInfoProperties?: ResultSet;
-}
-
-export interface SQLWarning extends SQLException {
-  nextWarning?: SQLWarning;
+  readOnly?: boolean;
+  url?: string;
 }
 
 export interface Class<T> extends Serializable, GenericDeclaration, Type, AnnotatedElement, OfField<Class<any>>, Constable {
 }
 
 export interface Wrapper {
-}
-
-export interface ResultSet extends Wrapper, AutoCloseable {
-  type?: number;
-  last?: boolean;
-  row?: number;
-  metaData?: ResultSetMetaData;
-  warnings?: SQLWarning;
-  holdability?: number;
-  cursorName?: string;
-  beforeFirst?: boolean;
-  afterLast?: boolean;
-  first?: boolean;
-  fetchSize?: number;
-  concurrency?: number;
-  statement?: Statement;
-  closed?: boolean;
-  fetchDirection?: number;
 }
 
 export interface Throwable extends Serializable {
@@ -828,6 +810,24 @@ export interface SQLException extends Exception, Iterable<Throwable> {
   nextException?: SQLException;
 }
 
+export interface ResultSet extends Wrapper, AutoCloseable {
+  first?: boolean;
+  last?: boolean;
+  warnings?: SQLWarning;
+  closed?: boolean;
+  row?: number;
+  metaData?: ResultSetMetaData;
+  holdability?: number;
+  cursorName?: string;
+  beforeFirst?: boolean;
+  afterLast?: boolean;
+  fetchSize?: number;
+  concurrency?: number;
+  statement?: Statement;
+  fetchDirection?: number;
+  type?: number;
+}
+
 export interface Serializable {
 }
 
@@ -847,33 +847,33 @@ export interface AnnotatedElement {
 export interface Constable {
 }
 
+export interface Exception extends Throwable {
+}
+
 export interface ResultSetMetaData extends Wrapper {
   columnCount?: number;
 }
 
 export interface Statement extends Wrapper, AutoCloseable {
+  resultSetConcurrency?: number;
+  resultSetHoldability?: number;
   connection?: Connection;
   warnings?: SQLWarning;
-  fetchSize?: number;
+  closed?: boolean;
+  generatedKeys?: ResultSet;
   maxRows?: number;
+  fetchSize?: number;
   resultSet?: ResultSet;
   updateCount?: number;
   moreResults?: boolean;
   poolable?: boolean;
-  closed?: boolean;
   fetchDirection?: number;
-  generatedKeys?: ResultSet;
   maxFieldSize?: number;
   queryTimeout?: number;
   resultSetType?: number;
   closeOnCompletion?: boolean;
   largeUpdateCount?: number;
   largeMaxRows?: number;
-  resultSetConcurrency?: number;
-  resultSetHoldability?: number;
-}
-
-export interface Exception extends Throwable {
 }
 
 export interface TypeVariable<D> extends Type, AnnotatedElement {
