@@ -155,6 +155,7 @@ const emptyDocuments: Document[] = [
       altText: "",
     },
     clickUrl: "",
+    buttonText: "",
     verticalContent: false,
     disabled: false,
   } as Document,
