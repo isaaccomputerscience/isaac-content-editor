@@ -155,6 +155,7 @@ const emptyDocuments: Document[] = [
       altText: "",
     },
     clickUrl: "",
+    buttonText: "",
     verticalContent: false,
     disabled: false,
   } as Document,
@@ -170,6 +171,6 @@ const emptyDocuments: Document[] = [
 
 export const EMPTY_DOCUMENTS: Partial<Record<ContentType, Content>> = Object.fromEntries(
   emptyDocuments.map((document) => {
-    return [document.type as ContentType, document];
+    return [document.type, document];
   }),
 );
